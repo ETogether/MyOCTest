@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TimingSetCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <frame key="frameInset" width="320" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qG-GF-XQQ" userLabel="bgView">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stf-8I-jg5">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Tvy-KM-MYU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZl-Ih-nPq" userLabel="blackLine">
+                                <color key="backgroundColor" red="0.18823529411764706" green="0.18823529411764706" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="1" id="vBV-Hq-VEv"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="周一、二  09:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cW2-Mb-7WH">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="b72-bd-aXc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oI9-Co-9se">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="7WQ-uA-Wab"/>
+                                    <constraint firstAttribute="height" constant="26" id="tPD-EG-Er7"/>
+                                </constraints>
+                                <state key="normal" title="statusBtn" image="timing_off.png"/>
+                                <state key="selected" image="timing_on.png"/>
+                                <connections>
+                                    <action selector="btnClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="INS-I4-ySL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cW2-Mb-7WH" firstAttribute="leading" secondItem="BZl-Ih-nPq" secondAttribute="trailing" constant="15" id="1hM-WU-mTj"/>
+                            <constraint firstAttribute="trailing" secondItem="oI9-Co-9se" secondAttribute="trailing" constant="8" id="1i8-8c-Izk"/>
+                            <constraint firstItem="BZl-Ih-nPq" firstAttribute="top" secondItem="6qG-GF-XQQ" secondAttribute="top" constant="10" id="31q-wM-pha"/>
+                            <constraint firstItem="stf-8I-jg5" firstAttribute="leading" secondItem="6qG-GF-XQQ" secondAttribute="leading" constant="8" id="8Yn-PY-gSF"/>
+                            <constraint firstItem="cW2-Mb-7WH" firstAttribute="centerY" secondItem="6qG-GF-XQQ" secondAttribute="centerY" id="SyC-Yb-B3I"/>
+                            <constraint firstAttribute="bottom" secondItem="BZl-Ih-nPq" secondAttribute="bottom" constant="10" id="TV4-dz-oQ2"/>
+                            <constraint firstItem="oI9-Co-9se" firstAttribute="centerY" secondItem="6qG-GF-XQQ" secondAttribute="centerY" id="VNR-LS-Cbx"/>
+                            <constraint firstItem="stf-8I-jg5" firstAttribute="centerY" secondItem="6qG-GF-XQQ" secondAttribute="centerY" id="mVT-2q-wjj"/>
+                            <constraint firstItem="BZl-Ih-nPq" firstAttribute="leading" secondItem="stf-8I-jg5" secondAttribute="trailing" constant="15" id="pNS-JI-RaK"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6qG-GF-XQQ" secondAttribute="trailing" id="5py-Lj-WS8"/>
+                    <constraint firstItem="6qG-GF-XQQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7Ky-Cg-YW9"/>
+                    <constraint firstAttribute="bottom" secondItem="6qG-GF-XQQ" secondAttribute="bottom" constant="20" id="i6t-hw-c5v"/>
+                    <constraint firstItem="6qG-GF-XQQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kdv-jS-DD3"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="statusBtn" destination="oI9-Co-9se" id="KlM-im-YRR"/>
+                <outlet property="statusLbl" destination="stf-8I-jg5" id="1nJ-hJ-Nx1"/>
+                <outlet property="timeLbl" destination="cW2-Mb-7WH" id="Cc1-i3-R5O"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="timing_off.png" width="103" height="54"/>
+        <image name="timing_on.png" width="103" height="54"/>
+    </resources>
+</document>

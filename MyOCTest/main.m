@@ -6,7 +6,7 @@
 //  Copyright © 2017年 netvox. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseController.h"
 #import "AppDelegate.h"
 
 int main(int argc, char * argv[]) {

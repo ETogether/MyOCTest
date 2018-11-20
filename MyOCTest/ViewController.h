@@ -6,10 +6,13 @@
 //  Copyright © 2017年 netvox. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : BaseController
 
 
 @end
 
+@interface TestClass : NSObject
+-(void)testPrint;
+@end

@@ -1,0 +1,123 @@
+//
+//  PrefixHeader.pch
+//  MyOCTest
+//
+//  Created by netvox-ios1 on 2017/5/5.
+//  Copyright © 2017年 netvox. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__     //只被Object-C文件引用
+
+#import "UIView+CQLayout.h"
+#import "TitleView.h"           //导航栏
+
+#endif
+
+//********弱引用 强引用
+#define CQWEAK(type) __weak typeof(type) type##Weak = type;
+#define CQSTRONG(type) __strong typeof(type) type##Strong = type;
+
+//#define weakify(...) \\
+//autoreleasepool {} \\
+//metamacro_foreach_cxt(rac_weakify_,, __weak, __VA_ARGS__)
+//#define strongify(...) \\
+//try {} @finally {} \\
+//_Pragma("clang diagnostic push") \\
+//_Pragma("clang diagnostic ignored \\"-Wshadow\\"") \\
+//metamacro_foreach(rac_strongify_,, __VA_ARGS__) \\
+//_Pragma("clang diagnostic pop")
+
+//#ifndef weakify
+//#if __has_feature(objc_arc)
+//
+//#define weakify( x ) \\
+//_Pragma("clang diagnostic push") \\
+//_Pragma("clang diagnostic ignored \\"-Wshadow\\"") \\
+//autoreleasepool{} __weak __typeof__(x) __weak_##x##__ = x; \\
+//_Pragma("clang diagnostic pop")
+//
+//#else
+//
+//#define weakify( x ) \\
+//_Pragma("clang diagnostic push") \\
+//_Pragma("clang diagnostic ignored \\"-Wshadow\\"") \\
+//autoreleasepool{} __block __typeof__(x) __block_##x##__ = x; \\
+//_Pragma("clang diagnostic pop")
+//
+//#endif
+//#endif
+//
+//#ifndef strongify
+//#if __has_feature(objc_arc)
+//
+//#define strongify( x ) \\
+//_Pragma("clang diagnostic push") \\
+//_Pragma("clang diagnostic ignored \\"-Wshadow\\"") \\
+//try{} @finally{} __typeof__(x) x = __weak_##x##__; \\
+//_Pragma("clang diagnostic pop")
+//
+//#else
+//
+//#define strongify( x ) \\
+//_Pragma("clang diagnostic push") \\
+//_Pragma("clang diagnostic ignored \\"-Wshadow\\"") \\
+//try{} @finally{} __typeof__(x) x = __block_##x##__; \\
+//_Pragma("clang diagnostic pop")
+//
+//#endif
+//#endif
+
+
+#pragma mark - CGFloat
+///屏幕宽高
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+
+//状态栏高度
+#define STATUSBARHEIGHT [[UIApplication sharedApplication] statusBarFrame].size.height
+
+
+//导航栏高度  - > 导航栏高度 + 状态栏高度
+#define NAVBARHEIGHT 44 + STATUSBARHEIGHT
+
+#pragma mark - 颜色
+//********颜色
+
+#define NAVBARBGCOLOR [UIColor cyanColor]
+
+
+///RGB设置
+#define RGB(r,g,b,a) ([UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a])
+
+
+///HEX设置颜色和透明度 hexValue十六进制值 alphaValue是CGFloat
+#define HEXCOLORALPHA(hexValue,alphaValue) [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >>16 ))/255.0 green:((float)((hexValue & 0xFF00) >>8 ))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:alphaValue]
+
+///HEX设置颜色 hexValue参数十六进制值
+#define HEXCOLOR(hexValue) HEXCOLORALPHA(hexValue,1)
+
+#pragma mark - 字体（系统、系统粗)
+///Font设置
+#define FONT(f) [UIFont systemFontOfSize:f]
+#define BOLDFONT(f) [UIFont boldSystemFontOfSize:f]
+
+#pragma mark - 打印方法
+#ifdef DEBUG
+//调试环境才会打印
+#define CQLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+//发布环境不打印
+#define CQLog(...)
+#endif
+
+
+
+
+
+
+#endif /* PrefixHeader_pch */

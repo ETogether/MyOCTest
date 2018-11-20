@@ -1,0 +1,6 @@
+framework module Pods_MyOCTest {
+  umbrella header "Pods-MyOCTest-umbrella.h"
+
+  export *
+  module * { export * }
+}

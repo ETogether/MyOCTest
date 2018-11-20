@@ -1,0 +1,1364 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fnil\fcharset134 PingFangSC-Regular;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red251\green2\blue7;\red0\green116\blue0;
+\red204\green232\blue207;\red100\green56\blue32;\red196\green26\blue22;\red170\green13\blue145;\red0\green0\blue0;
+\red63\green110\blue116;\red92\green38\blue153;\red46\green13\blue110;\red28\green0\blue207;\red38\green71\blue75;
+}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000;\cssrgb\c100000\c14913\c0;\csgenericrgb\c0\c45600\c0;
+\csgenericrgb\c80000\c90980\c81177;\csgenericrgb\c39100\c22000\c12500;\csgenericrgb\c77000\c10200\c8600;\csgenericrgb\c66500\c5200\c56900;\csgenericrgb\c0\c0\c0;
+\csgenericrgb\c24700\c43100\c45600;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c18100\c5200\c43100;\csgenericrgb\c11000\c0\c81000;\csgenericrgb\c14900\c27800\c29400;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww19060\viewh8400\viewkind0
+\deftab593
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf2 \cb2 \
+
+\f1\fs72 \cf3 \'d6\'d8\'b5\'e3\'a3\'ba\'ca\'c2\'c0\'fd \'cf\'c8\'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0 \'d4\'d9\'b1\'be\'b5\'d8\'b2\'a5\'b7\'c5\
+
+\f0\fs24 \cf2 \
+\cf4 \cb5 //
+\f2 \cf0 \
+
+\f0 \cf4 //  SpeechController.m
+\f2 \cf0 \
+
+\f0 \cf4 //  MyOCTest
+\f2 \cf0 \
+
+\f0 \cf4 //
+\f2 \cf0 \
+
+\f0 \cf4 //  Created by Sougu on 2018/10/31.
+\f2 \cf0 \
+
+\f0 \cf4 //  Copyright \'a9 2018
+\f1 \'c4\'ea
+\f0  netvox. All rights reserved.
+\f2 \cf0 \
+
+\f0 \cf4 //
+\f2 \cf0 \
+\
+\
+\
+
+\f0 \cf6 #import \cf7 "SpeechController.h"
+\f2 \cf0 \
+\
+
+\f0 \cf6 #import \cf7 "TitleView.h"
+\f2 \cf0 \
+\
+
+\f0 \cf6 #import \cf7 <Speech/Speech.h>
+\f2 \cf0 \
+\
+
+\f0 \cf6 #import \cf7 <AVFoundation/AVFoundation.h>
+\f2 \cf0 \
+\
+
+\f0 \cf8 @interface\cf9  \cf10 SpeechController\cf9  ()<\cf11 SFSpeechRecognizerDelegate\cf9 >
+\f2 \cf0 \
+
+\f0 \cf9 \{
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 ///
+\f1 \'c2\'bc\'d2\'f4\'b0\'b4\'c5\'a5
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 UIButton\cf9  *recordBtn;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///<#code#>
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 SFSpeechAudioBufferRecognitionRequest\cf9  *recognReq;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///<#code#>
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 AVAudioEngine\cf9  *audioEngine;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///<#code#>
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 SFSpeechRecognizer\cf9  *speechRecognizer;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///<#code#>
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 SFSpeechRecognitionTask\cf9  *recognTask;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'c4\'da\'c8\'dd
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 UILabel\cf9  * speechLbl;
+\f2 \cf0 \
+\
+
+\f0 \cf4 /// 
+\f1 \'c4\'da\'c8\'dd
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 UITextView\cf9  *speechTV;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///adioSession
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 AVAudioSession\cf9  *audio;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'c2\'bc\'d2\'f4
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 AVAudioRecorder\cf9  *recorder;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'ce\'c4\'bc\'fe\'c2\'b7\'be\'b6
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 copy\cf9 ) \cf11 NSString\cf9  *filePath;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///url
+\f1 \'ce\'c4\'bc\'fe\'c2\'b7\'be\'b6
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 NSURL\cf9  *filePathURL;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'bc\'c6\'ca\'b1\'c6\'f7
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 weak\cf9 ) \cf11 NSTimer\cf9  *timer;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'bc\'c6\'ca\'fd
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 assign\cf9 ) \cf8 int\cf9  countDown;
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///player
+\f2 \cf0 \
+
+\f0 \cf8 @property\cf9  (\cf8 nonatomic\cf9 ,\cf8 strong\cf9 ) \cf11 AVAudioPlayer\cf9  *player;
+\f2 \cf0 \
+\
+
+\f0 \cf8 @end
+\f2 \cf0 \
+\
+
+\f0 \cf8 @implementation\cf9  SpeechController
+\f2 \cf0 \
+\
+
+\f0 \cf9 -(\cf11 NSTimer\cf9  *)timer\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (!\cf10 _timer\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf11 NSTimer\cf9  *timer = [\cf11 NSTimer\cf9  \cf12 timerWithTimeInterval\cf9 :\cf13 1.0\cf9  \cf12 repeats\cf9 :\cf8 YES\cf9  \cf12 block\cf9 :^(\cf11 NSTimer\cf9  * \cf8 _Nonnull\cf9  timer) \{
+\f2 \cf0 \
+
+\f0 \cf9             \cf10 _countDown\cf9  --;
+\f2 \cf0 \
+
+\f0 \cf9             \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'b5\'b9\'bc\'c6\'ca\'b1\'a3\'ba
+\f0 %ds"\cf9 ,\cf10 _countDown\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 if\cf9  (\cf10 _countDown\cf9  == \cf13 0\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9                 \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'c2\'bc\'d2\'f4\'ca\'b1\'bc\'e4\'d2\'d1\'b5\'bd\'a3\'a1
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                 [\cf8 self\cf9  \cf14 stopRecord\cf9 :\cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9             \}
+\f2 \cf0 \
+
+\f0 \cf9         \}];
+\f2 \cf0 \
+
+\f0 \cf9         [[\cf11 NSRunLoop\cf9  \cf12 currentRunLoop\cf9 ] \cf12 addTimer\cf9 :timer \cf12 forMode\cf9 :\cf11 NSRunLoopCommonModes\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _timer\cf9  = timer;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 return\cf9  \cf10 _timer\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf9 - (\cf11 SFSpeechRecognizer\cf9  *)speechRecognizer\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (!\cf10 _speechRecognizer\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf4 //
+\f1 \'ce\'aa\'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'b6\'d4\'cf\'f3\'c9\'e8\'d6\'c3\'d3\'ef\'d1\'d4\'a3\'ac\'d5\'e2\'c0\'ef\'c9\'e8\'d6\'c3\'b5\'c4\'ca\'c7\'d6\'d0\'ce\'c4
+\f2 \cf0 \
+
+\f0 \cf9         \cf11 NSLocale\cf9  *local =[[\cf11 NSLocale\cf9  \cf12 alloc\cf9 ] \cf12 initWithLocaleIdentifier\cf9 :\cf7 @"zh_CN"\cf9 ];
+\f2 \cf0 \
+\
+
+\f0 \cf9         \cf10 _speechRecognizer\cf9  =[[\cf11 SFSpeechRecognizer\cf9  \cf12 alloc\cf9 ] \cf12 initWithLocale\cf9 :local];
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechRecognizer\cf9 .\cf11 delegate\cf9  = \cf8 self\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 return\cf9  \cf10 _speechRecognizer\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf9 - (\cf8 void\cf9 )viewDidLoad \{
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 super\cf9  \cf12 viewDidLoad\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 // Do any additional setup after loading the view.
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _countDown\cf9  = \cf13 60\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9  \cf14 settingView\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf9 - (\cf8 void\cf9 )viewWillAppear:(\cf8 BOOL\cf9 )animated\{
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 super\cf9  \cf12 viewWillAppear\cf9 :animated];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 CQWEAK\cf9 (\cf8 self\cf9 )
+\f2 \cf0 \
+
+\f0 \cf9     [\cf11 SFSpeechRecognizer\cf9  \cf12 requestAuthorization\cf9 :^(\cf11 SFSpeechRecognizerAuthorizationStatus\cf9  status) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf12 dispatch_sync\cf9 (\cf12 dispatch_get_main_queue\cf9 (), ^\{
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 switch\cf9  (status) \{
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 case\cf9  \cf12 SFSpeechRecognizerAuthorizationStatusDenied\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                     \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'d3\'c3\'bb\'a7\'ce\'b4\'ca\'da\'c8\'a8\'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                     [\cf10 _recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'d3\'c3\'bb\'a7\'ce\'b4\'ca\'da\'c8\'a8\'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                     \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 case\cf9  \cf12 SFSpeechRecognizerAuthorizationStatusRestricted\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                     \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'d4\'da\'d5\'e2\'cc\'a8\'c9\'e8\'b1\'b8\'c9\'cf\'ca\'dc\'b5\'bd\'cf\'de\'d6\'c6
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                     [\cf10 _recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'d4\'da\'d5\'e2\'cc\'a8\'c9\'e8\'b1\'b8\'c9\'cf\'ca\'dc\'b5\'bd\'cf\'de\'d6\'c6
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                     \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 case\cf9  \cf12 SFSpeechRecognizerAuthorizationStatusAuthorized\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                     \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'bf\'aa\'ca\'bc\'c2\'bc\'d2\'f4
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                     [\cf10 _recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'bf\'aa\'ca\'bc\'c2\'bc\'d2\'f4
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                     \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 case\cf9  \cf12 SFSpeechRecognizerAuthorizationStatusNotDetermined\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                     \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'ce\'b4\'ca\'da\'c8\'a8
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                     selfWeak.\cf10 recordBtn\cf9 .\cf11 enabled\cf9  = \cf8 YES\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                     [\cf10 _recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'ce\'b4\'ca\'da\'c8\'a8
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                     \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 default\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                     \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             \}
+\f2 \cf0 \
+
+\f0 \cf9         \});
+\f2 \cf0 \
+
+\f0 \cf9     \}];
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'d2\'b3\'c3\'e6\'c9\'e8\'d6\'c3
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )settingView\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 self\cf9 .\cf11 view\cf9 .\cf11 backgroundColor\cf9  = [\cf11 UIColor\cf9  \cf12 whiteColor\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9  \cf14 setNavBarView\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9  \cf14 addContentView\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf4 ///
+\f1 \'c9\'e8\'d6\'c3\'b5\'bc\'ba\'bd\'c0\'b8\'ca\'d3\'cd\'bc
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )setNavBarView\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 __weak\cf9  \cf8 typeof\cf9 (\cf8 self\cf9 ) weakSelf = \cf8 self\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 TitleView\cf9  *navBar = [[\cf10 TitleView\cf9  \cf12 alloc\cf9 ] \cf14 initWithFrame\cf9 :\cf12 CGRectMake\cf9 (\cf13 0\cf9 , \cf13 0\cf9 , \cf6 SCREENWIDTH\cf9 , \cf6 NAVBARHEIGHT\cf9 )];
+\f2 \cf0 \
+
+\f0 \cf9     navBar.\cf10 lbTitle\cf9 .\cf11 text\cf9  = \cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0
+\f0 "\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     [navBar.\cf10 btnRight\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'d3\'d2
+\f0 "\cf9  \cf12 forState\cf9 :\cf13 0\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     navBar.\cf10 backBlock\cf9  = ^(\cf8 int\cf9  tag)\{
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 switch\cf9  (tag) \{
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 case\cf9  \cf13 0\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                 [weakSelf.\cf11 navigationController\cf9  \cf12 popViewControllerAnimated\cf9 :\cf8 YES\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 break\cf9 ;
+\f2 \cf0 \
+\
+
+\f0 \cf9             \cf8 default\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9         \}
+\f2 \cf0 \
+
+\f0 \cf9     \};
+\f2 \cf0 \
+\
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :navBar];
+\f2 \cf0 \
+\
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 ///
+\f1 \'cc\'ed\'bc\'d3\'c4\'da\'c8\'dd\'ca\'d3\'cd\'bc
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )addContentView\{
+\f2 \cf0 \
+\
+
+\f0 \cf9     \cf10 _recordBtn\cf9  = [\cf11 UIButton\cf9  \cf12 buttonWithType\cf9 :\cf12 UIButtonTypeCustom\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recordBtn\cf9 .\cf11 frame\cf9  = \cf12 CGRectMake\cf9 (\cf13 120\cf9 , \cf6 NAVBARHEIGHT\cf9  + \cf13 40\cf9 , \cf6 SCREENWIDTH\cf9  - \cf13 240\cf9 , \cf13 60\cf9 );
+\f2 \cf0 \
+
+\f0 \cf4 //    _recordBtn.enabled = NO;
+\f2 \cf0 \
+
+\f0 \cf9     [\cf10 _recordBtn\cf9  \cf12 setTitleColor\cf9 :\cf6 HEXCOLOR\cf9 (\cf13 0x9812ed\cf9 ) \cf12 forState\cf9 :\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf4 //    [<#btn#> setImage:[[UIImage imageNamed:<#@""#>] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recordBtn\cf9 .\cf11 tag\cf9  = \cf13 100\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     [\cf10 _recordBtn\cf9  \cf12 addTarget\cf9 :\cf8 self\cf9  \cf12 action\cf9 :\cf8 @selector\cf9 (btnClick:) \cf12 forControlEvents\cf9 :\cf12 UIControlEventTouchUpInside\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :\cf10 _recordBtn\cf9 ];
+\f2 \cf0 \
+\
+
+\f0 \cf9     \cf10 _audioEngine\cf9  = [[\cf11 AVAudioEngine\cf9  \cf12 alloc\cf9 ] \cf12 init\cf9 ];
+\f2 \cf0 \
+\
+\
+
+\f0 \cf9     \cf10 _speechLbl\cf9  = [[\cf11 UILabel\cf9  \cf12 alloc\cf9 ] \cf12 initWithFrame\cf9 :\cf12 CGRectMake\cf9 (\cf13 20\cf9 , \cf10 _recordBtn\cf9 .\cf10 cqYH\cf9  + \cf13 40\cf9 , \cf6 SCREENWIDTH\cf9  - \cf13 40\cf9 , \cf13 40\cf9 )];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 textAlignment\cf9  = \cf12 NSTextAlignmentCenter\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 textColor\cf9  = \cf6 HEXCOLOR\cf9 (\cf13 0x3a8109\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 numberOfLines\cf9  = \cf13 0\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :\cf10 _speechLbl\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 layer\cf9 .\cf11 borderColor\cf9  = \cf6 HEXCOLOR\cf9 (\cf13 0x343434\cf9 ).\cf11 CGColor\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 layer\cf9 .\cf11 borderWidth\cf9  = \cf13 0.5\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechTV\cf9  = [[\cf11 UITextView\cf9  \cf12 alloc\cf9 ] \cf12 initWithFrame\cf9 :\cf12 CGRectMake\cf9 (\cf13 20\cf9 , \cf10 _speechLbl\cf9 .\cf10 cqYH\cf9  + \cf13 20\cf9 , \cf6 SCREENWIDTH\cf9  - \cf13 40\cf9 , \cf13 120\cf9 ) \cf12 textContainer\cf9 :\cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechTV\cf9 .\cf11 textColor\cf9  = \cf6 HEXCOLOR\cf9 (\cf13 0x3b02e2\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechTV\cf9 .\cf11 backgroundColor\cf9  = \cf6 HEXCOLOR\cf9 (\cf13 0xeeeeee\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :\cf10 _speechTV\cf9 ];
+\f2 \cf0 \
+\
+
+\f0 \cf9     \cf11 UIButton\cf9  *btn = [\cf11 UIButton\cf9  \cf12 buttonWithType\cf9 :\cf12 UIButtonTypeCustom\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     btn.\cf11 frame\cf9  = \cf12 CGRectMake\cf9 (\cf13 30\cf9 , \cf6 SCREENHEIGHT\cf9  - \cf13 90\cf9 , \cf6 SCREENWIDTH\cf9  - \cf13 60\cf9 , \cf13 30\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     [btn \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'cd\'a3\'d6\'b9\'c2\'bc\'d2\'f4
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [btn \cf12 setTitleColor\cf9 :\cf6 HEXCOLOR\cf9 (\cf13 0x80ef1e\cf9 ) \cf12 forState\cf9 :\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf4 //    [<#btn#> setImage:[[UIImage imageNamed:<#@""#>] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+\f2 \cf0 \
+
+\f0 \cf9     btn.\cf11 tag\cf9  = \cf13 101\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf4 //    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+\f2 \cf0 \
+
+\f0 \cf9     [btn \cf12 addTarget\cf9 :\cf8 self\cf9  \cf12 action\cf9 :\cf8 @selector\cf9 (stopRecord:) \cf12 forControlEvents\cf9 :\cf12 UIControlEventTouchUpInside\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :btn];
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 UIButton\cf9  *playBtn = [\cf11 UIButton\cf9  \cf12 buttonWithType\cf9 :\cf12 UIButtonTypeCustom\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     playBtn.\cf11 frame\cf9  = \cf12 CGRectMake\cf9 (\cf13 30\cf9 , \cf6 SCREENHEIGHT\cf9  - \cf13 45\cf9 , \cf6 SCREENWIDTH\cf9  - \cf13 60\cf9 , \cf13 30\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     [playBtn \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'b2\'a5\'b7\'c5\'c2\'bc\'d2\'f4
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [playBtn \cf12 setTitleColor\cf9 :\cf6 HEXCOLOR\cf9 (\cf13 0x80ef1e\cf9 ) \cf12 forState\cf9 :\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 //    [<#btn#> setImage:[[UIImage imageNamed:<#@""#>] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+\f2 \cf0 \
+
+\f0 \cf9     playBtn.\cf11 tag\cf9  = \cf13 101\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 //    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+\f2 \cf0 \
+
+\f0 \cf9     [playBtn \cf12 addTarget\cf9 :\cf8 self\cf9  \cf12 action\cf9 :\cf8 @selector\cf9 (playRecording) \cf12 forControlEvents\cf9 :\cf12 UIControlEventTouchUpInside\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf11 view\cf9  \cf12 addSubview\cf9 :playBtn];
+\f2 \cf0 \
+\
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf6 #pragma mark - 
+\f1 \'b0\'b4\'c5\'a5\'ca\'c2\'bc\'fe
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )btnClick:(\cf11 UIButton\cf9  *)btn\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 CQLog\cf9 (\cf7 @"Title=%@,tag=%ld"\cf9 ,btn.\cf11 currentTitle\cf9 ,(\cf8 long\cf9 )btn.\cf11 tag\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSInteger\cf9  tag = btn.\cf11 tag\cf9  - \cf13 100\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 switch\cf9  (tag) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 case\cf9  \cf13 0\cf9 :\{
+\f2 \cf0 \
+
+\f0 \cf9             
+\f2 \cf0 \
+
+\f0 \cf4 //            [self startRecordingWithRecognized];
+\f2 \cf0 \
+
+\f0 \cf9             [\cf8 self\cf9  \cf14 startRecord\cf9 ];
+\f2 \cf0 \
+\
+\
+
+\f0 \cf9         \}\cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 case\cf9  \cf13 1\cf9 :\{
+\f2 \cf0 \
+
+\f0 \cf9             \cf4 //
+\f1 \'c8\'a1\'cf\'fb
+\f2 \cf0 \
+
+\f0 \cf9             [\cf8 self\cf9  \cf14 endRecording\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \}\cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf4 //        case <#2#>:\{
+\f2 \cf0 \
+
+\f0 \cf4 //            //<#hnit#>
+\f2 \cf0 \
+
+\f0 \cf4 //            <#code#>
+\f2 \cf0 \
+
+\f0 \cf4 //        \}break;
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 default\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 break\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 ///
+\f1 \'bf\'aa\'ca\'bc\'c2\'bc\'d2\'f4\'b2\'a2\'ca\'b6\'b1\'f0
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )startRecordingWithRecognized\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 CQWEAK\cf9 (\cf8 self\cf9 )
+\f2 \cf0 \
+
+\f0 \cf9     [\cf10 _recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'c2\'bc\'d2\'f4\'d6\'d0
+\f0 ..."\cf9  \cf12 forState\cf9 :\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (\cf10 _recognTask\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recognTask\cf9  \cf12 cancel\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _recognTask\cf9  = \cf8 nil\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 //
+\f1 \'bf\'aa\'ca\'bc\'c2\'bc\'d2\'f4
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioSession\cf9  *audio = [\cf11 AVAudioSession\cf9  \cf12 sharedInstance\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSArray\cf9  *inputs = [audio \cf12 availableInputs\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioSessionPortDescription\cf9  *port = inputs.\cf11 firstObject\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSError\cf9  *portError;
+\f2 \cf0 \
+
+\f0 \cf9     [audio \cf12 setPreferredInput\cf9 :port \cf12 error\cf9 :&portError];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSParameterAssert\cf9 (!portError);
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSError\cf9  *error;
+\f2 \cf0 \
+
+\f0 \cf9     [audio \cf12 setCategory\cf9 :\cf11 AVAudioSessionCategoryRecord\cf9  \cf12 error\cf9 :&error];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSParameterAssert\cf9 (!error);
+\f2 \cf0 \
+
+\f0 \cf9     [audio \cf12 setMode\cf9 :\cf11 AVAudioSessionModeMeasurement\cf9  \cf12 error\cf9 :&error];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSParameterAssert\cf9 (!error);
+\f2 \cf0 \
+
+\f0 \cf9     [audio \cf12 setActive\cf9 :\cf12 AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation\cf9  \cf12 error\cf9 :&error];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSParameterAssert\cf9 (!error);
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recognReq\cf9  = [[\cf11 SFSpeechAudioBufferRecognitionRequest\cf9  \cf12 alloc\cf9 ] \cf12 init\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioInputNode\cf9  *inputNode = \cf8 self\cf9 .\cf10 audioEngine\cf9 .\cf11 inputNode\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSAssert\cf9 (inputNode, \cf7 @"
+\f1 \'c2\'bc\'c8\'eb\'c9\'e8\'b1\'b8\'c3\'bb\'d3\'d0\'d7\'bc\'b1\'b8\'ba\'c3
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSAssert\cf9 (\cf10 _recognReq\cf9 , \cf7 @"
+\f1 \'c7\'eb\'c7\'f3\'b3\'f5\'ca\'bc\'bb\'af\'ca\'a7\'b0\'dc
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recognReq\cf9 .\cf11 shouldReportPartialResults\cf9  = \cf8 YES\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recognTask\cf9  = [\cf8 self\cf9 .\cf10 speechRecognizer\cf9  \cf12 recognitionTaskWithRequest\cf9 :\cf10 _recognReq\cf9  \cf12 resultHandler\cf9 :^(\cf11 SFSpeechRecognitionResult\cf9  * \cf8 _Nullable\cf9  result, \cf11 NSError\cf9  * \cf8 _Nullable\cf9  error) \{
+\f2 \cf0 \
+
+\f0 \cf9         
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 BOOL\cf9  isFinal = \cf8 NO\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 if\cf9  (result) \{
+\f2 \cf0 \
+
+\f0 \cf9             selfWeak.\cf10 speechTV\cf9 .\cf11 text\cf9  = result.\cf11 bestTranscription\cf9 .\cf11 formattedString\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             isFinal = result.\cf12 isFinal\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 if\cf9  ([result.\cf11 bestTranscription\cf9 .\cf11 formattedString\cf9  \cf12 containsString\cf9 :\cf7 @"
+\f1 \'cd\'a3\'d6\'b9\'c2\'bc\'d2\'f4
+\f0 "\cf9 ]) \{
+\f2 \cf0 \
+
+\f0 \cf9                 isFinal = \cf8 false\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9                 [selfWeak \cf14 endRecording\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9                 \cf8 for\cf9  (\cf11 SFTranscription\cf9  *scrip \cf8 in\cf9  result.\cf11 transcriptions\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9                     \cf6 CQLog\cf9 (\cf7 @"%@"\cf9 ,scrip.\cf11 formattedString\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9                     
+\f2 \cf0 \
+
+\f0 \cf9                 \}
+\f2 \cf0 \
+
+\f0 \cf9                 
+\f2 \cf0 \
+
+\f0 \cf9             \}
+\f2 \cf0 \
+
+\f0 \cf9             
+\f2 \cf0 \
+
+\f0 \cf9         \}
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 if\cf9  (error || isFinal) \{
+\f2 \cf0 \
+
+\f0 \cf9             [selfWeak.\cf10 audioEngine\cf9  \cf12 stop\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9             [inputNode \cf12 removeTapOnBus\cf9 :\cf13 0\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9             selfWeak.\cf10 recognTask\cf9  = \cf8 nil\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             selfWeak.\cf10 recognReq\cf9  = \cf8 nil\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             selfWeak.\cf10 recordBtn\cf9 .\cf11 enabled\cf9  = \cf8 YES\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9             [selfWeak.\cf10 recordBtn\cf9  \cf12 setTitle\cf9 :\cf7 @"
+\f1 \'bf\'aa\'ca\'bc\'c2\'bc\'d2\'f4
+\f0 "\cf9  forState:\cf12 UIControlStateNormal\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \}
+\f2 \cf0 \
+
+\f0 \cf9     \}];
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioFormat\cf9  *format = [inputNode \cf12 outputFormatForBus\cf9 :\cf13 0\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [inputNode \cf12 removeTapOnBus\cf9 :\cf13 0\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [inputNode \cf12 installTapOnBus\cf9 :\cf13 0\cf9  \cf12 bufferSize\cf9 :\cf13 1024\cf9  \cf12 format\cf9 :format \cf12 block\cf9 :^(\cf11 AVAudioPCMBuffer\cf9  * \cf8 _Nonnull\cf9  buffer, \cf11 AVAudioTime\cf9  * \cf8 _Nonnull\cf9  when) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf6 CQLog\cf9 (\cf7 @"buffer:%@\\nwhem:%@"\cf9 , buffer, when);
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 if\cf9  (selfWeak.\cf10 recognReq\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9             [selfWeak.\cf10 recognReq\cf9  \cf12 appendAudioPCMBuffer\cf9 :buffer];
+\f2 \cf0 \
+
+\f0 \cf9         \}
+\f2 \cf0 \
+
+\f0 \cf9     \}];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf10 audioEngine\cf9  \cf12 prepare\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf10 audioEngine\cf9  \cf12 startAndReturnError\cf9 :&error];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 NSParameterAssert\cf9 (!error);
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _speechLbl\cf9 .\cf11 text\cf9  = \cf7 @"
+\f1 \'d5\'fd\'d4\'da\'c2\'bc\'d2\'f4
+\f0 ..."\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 ///
+\f1 \'bd\'e1\'ca\'f8\'c2\'bc\'d2\'f4\'b9\'a6\'c4\'dc
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )endRecording\{
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9 .\cf10 audioEngine\cf9  \cf12 stop\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (\cf10 _recognReq\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recognReq\cf9  \cf12 endAudio\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (\cf10 _recognTask\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recognTask\cf9  \cf12 cancel\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _recognTask\cf9  = \cf8 nil\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  ([\cf10 _speechLbl\cf9 .\cf11 text\cf9  \cf12 isEqualToString\cf9 :\cf7 @"
+\f1 \'d5\'fd\'d4\'da\'c2\'bc\'d2\'f4
+\f0 ..."\cf9 ]) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechLbl\cf9 .\cf11 text\cf9  = \cf7 @"
+\f1 \'bd\'e1\'ca\'f8\'c1\'cb\'c2\'bc\'d2\'f4\'b9\'a6\'c4\'dc
+\f0 "\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 ///
+\f1 \'bd\'f8\'d0\'d0\'c2\'bc\'d2\'f4
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )startRecord\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _countDown\cf9  = \cf13 60\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     [\cf8 self\cf9  \cf14 timer\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioSession\cf9  *session = [\cf11 AVAudioSession\cf9  \cf12 sharedInstance\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSError\cf9  *sessionError;
+\f2 \cf0 \
+
+\f0 \cf9     [session \cf12 setCategory\cf9 :\cf11 AVAudioSessionCategoryPlayAndRecord\cf9  \cf12 error\cf9 :&sessionError];
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (sessionError) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf6 CQLog\cf9 (\cf7 @"Session Error:%@"\cf9 ,sessionError.\cf11 description\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \} \cf8 else\cf9  \{
+\f2 \cf0 \
+
+\f0 \cf9         [session \cf12 setActive\cf9 :\cf8 YES\cf9  \cf12 error\cf9 :\cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf4 //        NSArray *inputs = [session availableInputs];
+\f2 \cf0 \
+
+\f0 \cf4 //        [session setPreferredInput:inputs.firstObject error:nil];
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf4 //    _audio = session;//
+\f1 \'b1\'a3\'d6\'a4\'c2\'bc\'d2\'f4\'cd\'ea\'b3\'c9\'ba\'f3\'bf\'c9\'be\'cd\'bf\'c9\'d2\'d4\'b2\'a5\'b7\'c5\'c9\'f9\'d2\'f4
+\f0  
+\f1 \'bb\'f2\'d5\'df\'d4\'da\'c6\'e4\'cb\'fc\'b4\'a6\'bd\'f8\'d0\'d0\'c6\'e4\'ca\'b5\'cf\'d6\'b4\'a6\'bd\'f8\'d0\'d0\'b4\'b4\'bd\'a8
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSString\cf9  *path = [\cf12 NSSearchPathForDirectoriesInDomains\cf9 (\cf12 NSDocumentDirectory\cf9 , \cf12 NSUserDomainMask\cf9 , \cf8 YES\cf9 ) \cf12 lastObject\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _filePath\cf9  = [path \cf12 stringByAppendingString\cf9 :\cf7 @"/RecordSpeech.wav"\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _filePathURL\cf9  = [\cf11 NSURL\cf9  \cf12 fileURLWithPath\cf9 :\cf10 _filePath\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 //
+\f1 \'c9\'e8\'d6\'c3\'b2\'ce\'ca\'fd
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSDictionary\cf9  *recordSetting = [[\cf11 NSDictionary\cf9  \cf12 alloc\cf9 ] \cf12 initWithObjectsAndKeys\cf9 :
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf4 //
+\f1 \'b2\'c9\'d1\'f9\'c2\'ca
+\f0   8000/11025/22050/44100/96000
+\f1 \'a3\'a8\'d3\'b0\'cf\'ec\'d2\'f4\'c6\'b5\'b5\'c4\'d6\'ca\'c1\'bf\'a3\'a9
+\f2 \cf0 \
+
+\f0 \cf9                                    [\cf11 NSNumber\cf9  \cf12 numberWithFloat\cf9 : \cf13 8000.0\cf9 ],\cf11 AVSampleRateKey\cf9 ,
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf4 // 
+\f1 \'d2\'f4\'c6\'b5\'b8\'f1\'ca\'bd
+\f2 \cf0 \
+
+\f0 \cf9                                    [\cf11 NSNumber\cf9  \cf12 numberWithInt\cf9 : \cf12 kAudioFormatLinearPCM\cf9 ],\cf11 AVFormatIDKey\cf9 ,
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf4 //
+\f1 \'b2\'c9\'d1\'f9\'ce\'bb\'ca\'fd
+\f0   8
+\f1 \'a1\'a2
+\f0 16
+\f1 \'a1\'a2
+\f0 24
+\f1 \'a1\'a2
+\f0 32 
+\f1 \'c4\'ac\'c8\'cf\'ce\'aa
+\f0 16
+\f2 \cf0 \
+
+\f0 \cf9                                    [\cf11 NSNumber\cf9  \cf12 numberWithInt\cf9 :\cf13 16\cf9 ],\cf11 AVLinearPCMBitDepthKey\cf9 ,
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf4 // 
+\f1 \'d2\'f4\'c6\'b5\'cd\'a8\'b5\'c0\'ca\'fd
+\f0  1 
+\f1 \'bb\'f2
+\f0  2
+\f2 \cf0 \
+
+\f0 \cf9                                    [\cf11 NSNumber\cf9  \cf12 numberWithInt\cf9 : \cf13 1\cf9 ], \cf11 AVNumberOfChannelsKey\cf9 ,
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf4 //
+\f1 \'c2\'bc\'d2\'f4\'d6\'ca\'c1\'bf
+\f2 \cf0 \
+
+\f0 \cf9                                    [\cf11 NSNumber\cf9  \cf12 numberWithInt\cf9 :\cf12 AVAudioQualityHigh\cf9 ],\cf11 AVEncoderAudioQualityKey\cf9 ,
+\f2 \cf0 \
+
+\f0 \cf9                                    \cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSError\cf9  *recorderError;
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _recorder\cf9  = [[\cf11 AVAudioRecorder\cf9  \cf12 alloc\cf9 ] \cf12 initWithURL\cf9 :\cf10 _filePathURL\cf9  \cf12 settings\cf9 :recordSetting \cf12 error\cf9 :&recorderError];
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (recorderError) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'c2\'bc\'d2\'f4\'b4\'ed\'ce\'f3\'a3\'ba
+\f0 %@"\cf9 ,recorderError);
+\f2 \cf0 \
+
+\f0 \cf9     \} \cf8 else\cf9  \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _recorder\cf9 .\cf11 meteringEnabled\cf9  = \cf8 YES\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recorder\cf9  \cf12 prepareToRecord\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recorder\cf9  \cf12 record\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf12 dispatch_after\cf9 (\cf12 dispatch_time\cf9 (\cf6 DISPATCH_TIME_NOW\cf9 , (\cf11 int64_t\cf9 )(\cf13 60\cf9  * \cf6 NSEC_PER_SEC\cf9 )), \cf12 dispatch_get_main_queue\cf9 (), ^\{
+\f2 \cf0 \
+
+\f0 \cf9             [\cf8 self\cf9  \cf14 stopRecord\cf9 :\cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \});
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+
+\f0 \cf4 //
+\f1 \'bd\'e1\'ca\'f8\'c2\'bc\'d2\'f4
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )stopRecord:(\cf8 id\cf9 )sender\{
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (\cf10 _timer\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _timer\cf9  \cf12 invalidate\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf4 //        _timer = nil;//
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  ([\cf8 self\cf9 .\cf10 recorder\cf9  \cf12 isRecording\cf9 ]) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recorder\cf9  \cf12 stop\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSFileManager\cf9  *file = [\cf11 NSFileManager\cf9  \cf12 defaultManager\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  ([file \cf12 fileExistsAtPath\cf9 :\cf10 _filePath\cf9 ]) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechLbl\cf9 .\cf11 text\cf9  = [\cf11 NSString\cf9  \cf12 stringWithFormat\cf9 :\cf7 @"
+\f1 \'c2\'bc\'c1\'cb
+\f0  %ld 
+\f1 \'c3\'eb
+\f0 ,
+\f1 \'ce\'c4\'bc\'fe\'b4\'f3\'d0\'a1\'ce\'aa
+\f0  %.2fKb"\cf9 ,\cf13 60\cf9  - (\cf8 long\cf9 )_countDown,[[\cf10 file\cf9  \cf12 attributesOfItemAtPath\cf9 :_filePath error:\cf8 nil\cf9 ] \cf12 fileSize\cf9 ]/\cf13 1024.0\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         
+\f2 \cf0 \
+
+\f0 \cf9     \}\cf8 else\cf9 \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechLbl\cf9 .\cf11 text\cf9  = \cf7 @"
+\f1 \'d7\'ee\'b6\'e0
+\f0 60
+\f1 \'c3\'eb
+\f0 "\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf9 -(\cf8 void\cf9 )playRecording\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  ([\cf8 self\cf9 .\cf10 recorder\cf9  \cf12 isRecording\cf9 ]) \{
+\f2 \cf0 \
+
+\f0 \cf9         [\cf10 _recorder\cf9  \cf12 stop\cf9 ];\cf4 //
+\f1 \'cd\'a3\'d2\'b5\'c2\'bc\'d2\'f4
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (!\cf8 self\cf9 .\cf10 filePathURL\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf11 NSString\cf9  *path = [\cf12 NSSearchPathForDirectoriesInDomains\cf9 (\cf12 NSDocumentDirectory\cf9 , \cf12 NSUserDomainMask\cf9 , \cf8 YES\cf9 ) \cf12 lastObject\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _filePath\cf9  = [path \cf12 stringByAppendingString\cf9 :\cf7 @"/RecordSpeech.wav"\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 self\cf9 .\cf10 filePathURL\cf9  = [\cf11 NSURL\cf9  \cf12 fileURLWithPath\cf9 :path];
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 NSError\cf9  *playerError;
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 AVAudioPlayer\cf9  *player = [[\cf11 AVAudioPlayer\cf9  \cf12 alloc\cf9 ] \cf12 initWithContentsOfURL\cf9 :\cf8 self\cf9 .\cf10 filePathURL\cf9  \cf12 error\cf9 :&playerError];
+\f2 \cf0 \
+
+\f0 \cf9     \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'ca\'fd\'be\'dd\'c1\'bf\'b4\'f3\'d0\'a1\'a3\'ba
+\f0 %li"\cf9 ,player.data.length / \cf13 1024\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (playerError) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'c2\'bc\'d2\'f4\'b4\'ed\'ce\'f3\'a3\'ba
+\f0 %@"\cf9 ,playerError);
+\f2 \cf0 \
+
+\f0 \cf9     \} \cf8 else\cf9  \{
+\f2 \cf0 \
+
+\f0 \cf9         [[\cf11 AVAudioSession\cf9  \cf12 sharedInstance\cf9 ] \cf12 setCategory\cf9 :\cf11 AVAudioSessionCategoryPlayback\cf9  \cf12 error\cf9 :\cf8 nil\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9         [player \cf12 play\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+
+\f0 \cf9     \cf10 _player\cf9  = player;\cf4 //
+\f1 \'d0\'e8\'d2\'aa\'b1\'a3\'b3\'d6
+\f0 player
+\f1 \'b4\'e6\'d4\'da
+\f0  
+\f1 \'b7\'f1\'d4\'f2\'ce\'de\'b7\'a8\'b2\'a5\'b7\'c5
+\f2 \cf0 \
+
+\f0 \cf9     
+\f2 \cf0 \
+
+\f0 \cf9     \cf4 //
+\f1 \'b1\'be\'b5\'d8\'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 SFSpeechRecognizer\cf9  *rg = [[\cf11 SFSpeechRecognizer\cf9  \cf12 alloc\cf9 ] \cf12 init\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf4 //    _speechRecognizer = rg;
+\f2 \cf0 \
+
+\f0 \cf4 //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"RecordSpeech.wav" withExtension:nil];
+\f2 \cf0 \
+
+\f0 \cf4 //    NSURL *url = [NSURL fileURLWithPath:self.filePath];
+\f2 \cf0 \
+
+\f0 \cf9     \cf11 SFSpeechRecognitionRequest\cf9  *rgReq = [[\cf11 SFSpeechURLRecognitionRequest\cf9  \cf12 alloc\cf9 ] \cf12 initWithURL\cf9 :\cf8 self\cf9 .\cf10 filePathURL\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9     [rg \cf12 recognitionTaskWithRequest\cf9 :rgReq \cf12 resultHandler\cf9 :^(\cf11 SFSpeechRecognitionResult\cf9  * \cf8 _Nullable\cf9  result, \cf11 NSError\cf9  * \cf8 _Nullable\cf9  error) \{
+\f2 \cf0 \
+
+\f0 \cf9         
+\f2 \cf0 \
+
+\f0 \cf9         \cf8 if\cf9  (result) \{\cf4 //
+\f1 \'c8\'e7\'b9\'fb\'d3\'ef\'d2\'f4\'d6\'d0\'ca\'c7\'d6\'d0\'d3\'a2\'ce\'c4\'bb\'ec\'ba\'cf
+\f0   
+\f1 \'b0\'d1\'cf\'b5\'cd\'b3\'b8\'c4\'ce\'aa\'d6\'d0\'ce\'c4\'bc\'b4\'bf\'c9
+\f2 \cf0 \
+
+\f0 \cf9             \cf10 _speechTV\cf9 .\cf11 text\cf9  = [\cf11 NSString\cf9  \cf12 stringWithFormat\cf9 :\cf7 @"%@"\cf9 ,result.\cf11 bestTranscription\cf9 .\cf11 formattedString\cf9 ];
+\f2 \cf0 \
+
+\f0 \cf9             \cf8 if\cf9  (result.\cf12 isFinal\cf9 ) \{
+\f2 \cf0 \
+
+\f0 \cf9                 \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'cd\'ea\'b3\'c9\'b1\'be\'b5\'d8
+\f0  
+\f1 \'ca\'b6\'b1\'f0\'a3\'a1
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9             \}
+\f2 \cf0 \
+
+\f0 \cf9             
+\f2 \cf0 \
+
+\f0 \cf9         \}\cf8 else\cf9 \{
+\f2 \cf0 \
+
+\f0 \cf9             \cf6 CQLog\cf9 (\cf7 @"
+\f1 \'ce\'de\'b7\'a8\'ca\'b6\'b1\'f0\'a3\'a1
+\f0 "\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9         \}
+\f2 \cf0 \
+
+\f0 \cf9         
+\f2 \cf0 \
+
+\f0 \cf9     \}];
+\f2 \cf0 \
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf6 #pragma mark - SFSpeech
+\f1 \'b4\'fa\'c0\'ed\'b7\'bd\'b7\'a8
+\f2 \cf0 \
+
+\f0 \cf9 -(\cf8 void\cf9 )speechRecognizer:(\cf11 SFSpeechRecognizer\cf9  *)speechRecognizer availabilityDidChange:(\cf8 BOOL\cf9 )available\{
+\f2 \cf0 \
+
+\f0 \cf9     \cf8 if\cf9  (available) \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechLbl\cf9 .\cf11 textColor\cf9  = \cf6 HEXCOLOR\cf9 (\cf13 0x32f319\cf9 );
+\f2 \cf0 \
+
+\f0 \cf9     \}\cf8 else\cf9 \{
+\f2 \cf0 \
+
+\f0 \cf9         \cf10 _speechLbl\cf9 .\cf11 text\cf9  = \cf7 @"
+\f1 \'d3\'ef\'d2\'f4\'ca\'b6\'b1\'f0\'b2\'bb\'bf\'c9\'d3\'c3
+\f0 "\cf9 ;
+\f2 \cf0 \
+
+\f0 \cf9     \}
+\f2 \cf0 \
+\
+
+\f0 \cf9 \}
+\f2 \cf0 \
+\
+
+\f0 \cf8 @end
+\f2 \cf0 \
+\
+\
+\
+}

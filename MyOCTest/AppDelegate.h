@@ -6,7 +6,7 @@
 //  Copyright © 2017年 netvox. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
